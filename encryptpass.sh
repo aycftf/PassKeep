@@ -150,6 +150,9 @@ if [ "$extra" == "y" ]; then
 		openssl enc -d -camellia-256-cbc -a -salt -K "$(cat key32.hex)" -iv "$(cat key16.hex)" -in newpass.enc -out newSec.dec
 		openssl enc -d -aes-256-cbc -pbkdf2 -iter 278967 -salt -md sha512 -in newSec.dec  -out newBase64.txt 
 		cat newBase64.txt
+		testing=$(cat newBase64.txt)
+                echo "$testing" | base64 --decode
+		sleep 1
 		ls -la 
 		sleep 5
 		mkdir newStuff
