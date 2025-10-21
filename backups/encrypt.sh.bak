@@ -1,0 +1,196 @@
+#!/bin/bash
+
+##Script to encrypt password invoked via python script
+
+##COLOR DEF
+# Define color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m' #####No Color (reset)
+BOLD="\e[1m ... \e[0m" 
+
+##ASCII
+echo -e "\n"
+echo -e "\n"
+echo -e "${BOLD}""${CYAN}"
+echo -e "\n"
+echo -e "\n"
+toilet -t "Welcome" -f 3d -F metal
+sleep 3
+##Regex with sed command to filter output for EOF
+cat << 'EOF' 
+⠀⠀⠀⠀⠀⢀⣤⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⠟⠉⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠙⢻⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⣠⣄⠀⢻⣿⣿⣿⣿⣿⡿⠀⣠⣄⠀⠀⠀⢻⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⠀⠀⠀⠀⠰⣿⣿⠀⢸⣿⣿⣿⣿⣿⡇⠀⣿⣿⡇⠀⠀⢸⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀⠙⠃⠀⣼⣿⣿⣿⣿⣿⣇⠀⠙⠛⠁⠀⠀⣼⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣷⣤⣄⣀⣠⣤⣾⣿⣿⣿⣿⣽⣿⣿⣦⣄⣀⣀⣤⣾⣿⣿⣿⣿⠃⠀⠀⢀⣀⠀⠀
+⠰⡶⠶⠶⠶⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠛⠉⠉⠙⠛⠋⠀
+⠀⠀⢀⣀⣠⣤⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠷⠶⠶⠶⢤⣤⣀⠀
+⠀⠛⠋⠉⠁⠀⣀⣴⡿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⣤⣀⡀⠀⠀⠀⠀⠘⠃
+⠀⠀⢀⣤⡶⠟⠉⠁⠀⠀⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠟⠉⠀⠀⠀⠉⠙⠳⠶⣄⡀⠀⠀
+⠀⠀⠙⠁⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀
+
+
+EOF
+
+
+echo -e "${NC}"
+toilet -t -f lildevil "Pass-Keep" -F gay
+sleep 1
+echo -e "${BOLD}""${PURPLE}" "Dont Settle For Shit Passwords" "${NC}"
+
+
+
+sleep 3
+##echo pass starting
+echo -e "\e[1m GENERATING YOUR PASSWORD \e[0m" 
+echo -e "\e[0;33m IF UNFAMILIAR WITH GPG, PLEASE LEARN ENCRYPTION STANDARDS WITH GPG TOOL AND HOW TO USE IT \e[0m"
+x=$"python3 passwordgen.py"
+##invoke python script
+$x
+current_dir=$(pwd)
+echo -e "Creating new password file in $current_dir"
+echo -e "\n"
+read -p "Enter the string of numbers for the current password file to work with here: " RANDOMINT
+echo "Inputting necessary permissions on file"
+sudo chmod go-rwx "$current_dir""/pass${RANDOMINT}.txt"
+sudo chown root:root "$current_dir""/pass${RANDOMINT}.txt"
+ls -la | grep "pass${RANDOMINT}.txt"
+echo "Encrypting Password Now...."
+##delete keys if needed
+sudo gpg --list-keys
+sleep 1
+
+read -p "Before continuing with encryption process... delete any root keys? -- IRREVERSIBLE (y/n): " delete_gpg
+
+if [ "$delete_gpg" == "y" ]; then
+	read -p "Enter gpg Revocation Key ID Listed Above that you would like to delete... (EX: 7856E14A9A6A8A492FD7F068ECE3): " revoc
+	##Delete effective root gpg keys stored
+	sudo gpg --delete-secret-keys "${revoc}"
+	sleep 1
+	sudo gpg --delete-keys "${revoc}"
+
+elif [ "$delete_gpg" == "$n" ]; then
+	echo "Skipping...."
+
+else
+	echo "invalid input... skipping"
+fi
+#newline break
+echo -e "\n"
+read -p "Re-use IMPORTED ROOT GPG Key? (y/n): " reuse
+
+if [ "$reuse" == "y" ]; then
+	sudo gpg --list-keys
+	read -p "Paste Revocation Key ID to import via created gpg key: (EX 98AD55D7C6D323F9A1E543805FA1EC400B10CD4E): " import
+	sleep 1
+	sudo gpg --encrypt --recipient "$import" "$current_dir""/pass${RANDOMINT}.txt"
+
+	folderexist="$current_dir""/NEWPASSWORD"
+		#Check if /home/user/NEWPASSWORD folder exists
+        if ! [[ -f "$folderexist" ]]; then
+				#if not make it
+                echo "folder for new encrypted password txt file doesnt exist... making dir"
+                sudo mkdir "$current_dir""/NEWPASSWORD"
+        fi
+		#user var = username from colomn 4 from grep output --> asd well as give user perms for new pass file + .gpg
+        user=$(getent group wheel | cut -d: -f4 | awk -F, '{print $1}') && sudo chown "$user":"$user" pass${RANDOMINT}.txt.gpg
+        echo -e " \e[1m ENCRYPTED PASSWORD MOVING TO NEW DIRECTORY ---- NEWPASSWORD \e[0m "
+        ls -la | grep "NEWPASSWORD"
+        sleep 1
+		#move files to new dir
+        sudo mv "$current_dir""/pass${RANDOMINT}.txt.gpg" "$current_dir""/NEWPASSWORD/pass${RANDOMINT}.txt.gpg"
+        sudo rm "$current_dir""/pass${RANDOMINT}.txt"
+		#move to dir w/ files
+        cd "$current_dir""/NEWPASSWORD"
+        ls
+		#perms
+		sudo chmod ug+rw "$current_dir""/NEWPASSWORD"
+        sudo chown "$user":"$user" "$current_dir""/NEWPASSWORD"
+        echo -e "\n"
+        echo -e "IF PUBLIC KEY IS INSTALLED WITHIN SYSTEM..... COMMAND sudo gpg --decrypt  pass.txt.gpg WILL DECRYPT THE PASSWORD TEXT FILE"
+        cowsay -d "Exiting Now!"
+	exit 0
+fi
+sudo gpg --full-generate-key
+
+sleep 1
+echo -e "\n"
+echo -e "\n"
+
+read -p "Paste Key ID to import via created gpg key: (EX 98AD55D7C6D323F9A1E543805FA1EC400B10CD4E): " import
+
+#import key pasted
+sudo gpg --import "$import"
+#show
+sudo gpg --list-keys | grep "$import"
+
+#correct var y/n input
+read -p "Did import of newly created gpg key work correctly?: (y/n) "  correct
+
+
+if [ "$correct" == "y" ]; then
+	#if imported correctly, the new file will then be generated
+	echo -e "\e[1m Encrypting generated password file.... \e[0m"
+	##If gpg import works, encrypt file (hopefully with rsa)
+	sudo chmod ugo+rwx "$current_dir""/pass${RANDOMINT}.txt"
+	sudo gpg --encrypt --recipient "$import" "$current_dir""/pass${RANDOMINT}.txt"
+	folderexist="$current_dir""/NEWPASSWORD"
+	#DOESNT WORK AT THE MOMENT
+	if ! [[ -f "$folderexist" ]]; then
+		#checking if proper dir initialized
+		echo "folder for gpg key doesnt exist... making dir"
+		#sudo mkdir "$current_dir""/NEWPASSWORD"
+	fi
+	#gpg perm
+	user=$(getent group wheel | cut -d: -f4 | awk -F, '{print $1}') && sudo chown "$user":"$user" pass${RANDOMINT}.txt.gpg
+	echo -e " \e[1m ENCRYPTED PASSWORD MOVING TO NEW DIRECTORY ---- NEWPASSWORD \e[0m "
+	ls -la | grep "NEWPASSWORD"
+	sleep 1
+	sudo mv "$current_dir""/pass${RANDOMINT}.txt.gpg" "$current_dir"/NEWPASSWORD/pass${RANDOMINT}.txt.gpg
+	sudo rm "$current_dir""/pass${RANDOMINT}.txt"
+	cd "$current_dir""/NEWPASSWORD"
+	ls
+	sudo chmod ug+rw "$current_dir""/NEWPASSWORD"
+	sudo chown root:"$user" "$current_dir""/NEWPASSWORD"
+	echo -e "\n"
+	echo -e "IF PUBLIC KEY IS INSTALLED WITHIN SYSTEM..... COMMAND sudo gpg --decrypt  pass${RANDOMINT}.txt.gpg WILL DECRYPT THE PASSWORD TEXT FILE"
+	cowsay -d "Exiting Now!"
+	exit 0
+
+elif [ "$correct" == "n" ]; then 
+	echo "\e[1m Try Again.... \e[0m"
+	exit 0
+	
+
+else 
+	echo "Incorrect input...."
+	exit 0
+
+fi
+
