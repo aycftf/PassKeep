@@ -30,7 +30,6 @@ else
 
 fi
 sleep 3
-##Regex with sed command to filter output for EOF
 ##ASCII FROM : https://emojicombos.com/anime-ascii-art
 
 cat << 'EOF' 
@@ -68,8 +67,7 @@ cat << 'EOF'
 
 
 EOF
-
-echo -e "${NC}"
+echo -e "${NC}" && clear
 sleep 1
 testgpg=$(command -v gpg)
 
