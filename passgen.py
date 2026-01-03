@@ -225,7 +225,15 @@ def main():
                 print(f"Continuing script gen.. Current Password Generated: {newPassAttempt}")
                 allPass(newPassAttempt)
                 continue
-    print("\n\n ALL PASSWORDS GENERATED FROM SCRIPT: %s \n\n"% (appendPass))
+              
+    
+    
+    
+    print("\n\n ALL PASSWORDS GENERATED FROM SCRIPT:\n ")
+    
+    for xP in newP:
+      print(f" {xP} \n\n", end='')
+
            
 
     
