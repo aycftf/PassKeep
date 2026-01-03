@@ -1,15 +1,13 @@
-
 import random, os, time, sys, re
-from datetime import date
 
 
 
 
-##TODO: FIX MEMORY ISSUE WITH LONG PASS
 
+newP = []
 UPPER_CHAR = "FGHIJKLMNPQRSTVWXYZ"
 LOWER_CHAR = "dfghijklmpqrstvwxyz"
-SPECIAL_CHAR = "!@#$%^,.<#<_=+&*()?></|}:;+}#$]#^#$&@$^&("
+SPECIAL_CHAR = "!@#$%^,.<#<_=+&*?></|}:;+}$]^#$$^&"
 
 class color:
    PURPLE = '\033[95m'
@@ -56,14 +54,14 @@ def getLenOfPass():
      #Basic error handeling for mis input
     while True:
         try:
-            lenn = int(input("Enter the length for your new outputted password here (0-73): "))
+            lenn = int(input("Enter the length for your new outputted password here (0-90): "))
             
             #keep max len to 60 due to memory issues derriving extremely long passwords for now..
-            if lenn >= 1 and lenn <= 60:
+            if lenn >= 1 and lenn <= 90:
                 break
             else:
                 #Testing cool string interp
-                print(f"Please enter a length greater than %s, and less then %s"% (7, "60"))
+                print(f"Please enter a length greater than %s, and less then %s"% (7, "90"))
                 continue
         
         except ValueError:
@@ -73,6 +71,9 @@ def getLenOfPass():
     
     
     return lenn
+
+
+
 
 
 
@@ -86,47 +87,63 @@ def passGen(lenn):
     while len(newPass) < lenn:
         #print(str(newPass).strip(' '))
         random.shuffle(subsets)
-        for sub in subsets: 
-            x = random.choice(sub)
-            ##If char subset is already used, skip val and use different subset
-            if x in newPass:
-                subset = random.choice(SPECIAL_CHAR)
+        for sub in subsets:
+          x = random.choice(sub)
+          ##If char subset is already used, skip val and use different subset
+          if x.count(str(newPass)) > 3:
+              subset = random.choice(SPECIAL_CHAR)
 
-                #For next loop, if special char already in appended list
-                if subset in newPass:
-                    #Loop thru upper char list
-                    subset = UPPER_CHAR
+              #For next loop, if special char already in appended list
+              if subset.count(str(newPass)) > 3:
+                  #Loop thru upper char list
+                  subset = UPPER_CHAR
+                  
+                  if subset in newPass:
                     f = random.choice(subset)
                     if f in newPass:
+                      random.shuffle(subsets)
+                      if len(newPass) < lenn:
+                        newPass.append(random.choice(SPECIAL_CHAR))
                         continue
-                    
-                    
-                    else:    
-                        #Append random char and continue loop
-                        newPass.append(f)
+                      else:
+                        break
+                  
+                  
+                  
+                    else:
+                      newPass.append(f)
+                  
+                  else:    
+                      #Append random char and continue loop
+                      newPass.append(subset)
 
-                        continue
-                #If  subset var not in list then we append (First loop)
-                else:
-                    
-                    newPass.append(subset)
+                      continue
+              #If  subset var not in list then we append (first loop)
+              else:
+                  
+                  newPass.append(subset)
 
-            else:
-                newPass.append(x)
+          else:
+              newPass.append(x)
         
     newPass = ''.join(random.sample(newPass, k=lenn))
     #print
-    time.sleep(0.2)
+    time.sleep(0.08)
     print(f"\n")
     print(color.BOLD + "Your New Generated Password!!" + color.END)
     print(f"\n")
     return  newPass
 
+def allPass(passs):
+	newP.append(str(passs))
+	return newP
+	
+	
+	
 
 
 
-
-def CheckPass(newPass, lenn): 
+def CheckPass(newPass, lenn):
     '''
     ###Logic for determining amount of specual chars in password
     ##This is an example for finding lowercase chars
@@ -138,19 +155,31 @@ def CheckPass(newPass, lenn):
     
     '''
     #specialCharCount = [xX for xX in newPass if xX in SPECIAL_CHAR ]
-    pat=re.compile('[@_!+=\;(){^#$%^&*()<>?/|}{~:]')
+    pat=re.compile('[@_!+=;(){^#$%^&*()<>?/|}{~:]')
     #Search method via the regex pattern to look for all special chars
     spcL = [sC for sC in newPass if pat.search(sC)]
     #printSpclCharLen = print(f"\n\n{''.join(spcL)}")
 
     allSpcl = len(spcL)
     percSpcl = int((allSpcl / lenn) * 100)
-    if percSpcl <= 28:
-        print(f"\n\n Percentage of special chars in omitted password: {percSpcl}")
-        return True
-    else:
+    
+    if lenn < 5:
+      if percSpcl <= 60:
+          print(f"\n\n Percentage of special chars in omitted password: {percSpcl}")
+          return True
+      else:
+        print("\n\n Percentage of special chars in generated password over the special char threshold: %s"% (percSpcl))
         return False
-            
+    
+    if lenn > 10:
+      if percSpcl <= 32:
+          print(f"\n\n Percentage of special chars in omitted password: {percSpcl}")
+          return True
+      
+      else:
+        print("\n\n Percentage of special chars in generated password over the special char threshold: %s"% (percSpcl))
+        return False
+          
 
 
 
@@ -173,28 +202,34 @@ def main():
     loP = getLenOfPass()
     #var for psasGen fun
     x = passGen(loP)
+    print("\n\n")
+    print("Current Password: %s"% (x))
     weakPass = CheckPass(x, loP)
+    appendPass = allPass(x)
+    
     
     if weakPass:
+		
         n = True
         print("WEAK PASS DETECTED!")
         while n is True:
             newPassAttempt = passGen(loP)
             if CheckPass(newPassAttempt, loP) is False:
                 x = newPassAttempt
+                time.sleep(2)
+                print(f"\n\n\nFINAL GENERATED PASS: {x} \n\n\n")
+                allPass(newPassAttempt)
                 n = False
                 
             else:
-                print(f"Continuing script gen.. {newPassAttempt}")
-                continue    
-            
-            
-            
-        
-        
-    print(f"{x}")
-    
+                print(f"Continuing script gen.. Current Password Generated: {newPassAttempt}")
+                allPass(newPassAttempt)
+                continue
+    print("\n\n ALL PASSWORDS GENERATED FROM SCRIPT: %s \n\n"% (appendPass))
+           
 
+    
+'''
     print(f"Creating File! pass{RANDOMERINT}.gpg ")
     #grab dir with os.path.isfile
     dir=os.getcwd()
@@ -210,7 +245,7 @@ def main():
     else:
         print("Creating File within same directory as script ran from.... ")  ###EXPAND ON LATER FOR OS.DIRECTORY
         create_file(x)
-        
+'''        
         
         
 
