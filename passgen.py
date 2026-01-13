@@ -229,15 +229,15 @@ def main():
     
     
     
-    print("\n\n ALL PASSWORDS GENERATED FROM SCRIPT:\n ")
+  #  print("\n\n ALL PASSWORDS GENERATED FROM SCRIPT:\n ")
     
-    for xP in newP:
-      print(f" {xP} \n\n", end='')
+#    for xP in newP:
+#      print(f" {xP} \n\n", end='')
 
            
 
     
-'''
+
     print(f"Creating File! pass{RANDOMERINT}.gpg ")
     #grab dir with os.path.isfile
     dir=os.getcwd()
@@ -253,7 +253,7 @@ def main():
     else:
         print("Creating File within same directory as script ran from.... ")  ###EXPAND ON LATER FOR OS.DIRECTORY
         create_file(x)
-'''        
+
         
         
 

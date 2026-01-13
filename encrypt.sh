@@ -34,14 +34,15 @@ echo -e "\n"
 
 
 if command -v toilet >> /dev/null && command -v lolcat 2&>1 /dev/null; then
-	toilet -t -f Bloody " P -- K E E P "  | lolcat --spread=1 -a --speed=1000 --truecolor	
+	toilet -t -f Bloody " P -- K E E P "  | lolcat --spread=1 -a --speed=1000 --truecolor
+	sleep 2 && clear	
 else
 
 	echo -e ""${BOLD}""${RED}" Welcome. "${NC}" \n"	
 
 
 fi
-sleep 3
+sleep 1.5
 ##ASCII FROM : https://emojicombos.com/anime-ascii-art
 
 cat << 'EOF' 
@@ -79,8 +80,7 @@ cat << 'EOF'
 
 
 EOF
-echo -e "${NC}" && clear
-sleep 1
+echo -e "${NC}"
 testgpg=$(command -v gpg)
 
 if [ -z "$testgpg" ]; then
@@ -88,10 +88,10 @@ if [ -z "$testgpg" ]; then
 	sudo dnf5 install gpg > /dev/null 2>&1 || sudo apt-get install gpg -y > /dev/null 2>&1;
 fi
 echo -e "${BOLD}""${PURPLE}" "Dont Settle For Shit Passwords" "${NC}"
+sleep 3 && clear
 
 
-
-sleep 3
+sleep 1.5
 ##echo pass starting
 echo -e "\e[1m GENERATING YOUR PASSWORD \e[0m" 
 echo -e "\e[0;33m IF UNFAMILIAR WITH GPG, PLEASE LEARN ENCRYPTION STANDARDS WITH GPG TOOL AND HOW TO USE IT \e[0m"
@@ -179,8 +179,7 @@ gpgFunc() {
 	if [[ "$rename" == "y" || "$rename" == "Y" ]]; then
 
 		read -p "Enter Name Here (Ignore file trailer.. e.g. .gpg): " newName
-		sudo scp "$current_dir""/NEWPASSWORD/pass${RANDOMINT}.gpg" "$newName".gpg && sudo rm "$current_dir""/NEWPASSWORD/pass${RANDOMINT}.gpg"
-
+		sudo scp "$current_dir/NEWPASSWORD/pass${RANDOMINT}.gpg" "NEWPASSWORD/$newName".gpg && sudo rm "$current_dir/NEWPASSWORD/pass${RANDOMINT}.gpg"
 	fi 
 
 
